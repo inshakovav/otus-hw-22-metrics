@@ -12,4 +12,8 @@ public class GreetingController {
         return "Hello " + name;
     }
 
+    @GetMapping("/test")
+    public String test() {
+        return "Test succeeded";
+    }
 }

@@ -18,5 +18,5 @@ spec:
           - name: metrics-demo
             image: alxinsh/metrics-demo:v2
             ports:
-              - containerPort: 8080
+              - containerPort: 8090
 

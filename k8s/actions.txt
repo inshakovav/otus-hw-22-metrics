@@ -1,6 +1,6 @@
-http://localhost:8080/actuator/prometheus
-http://localhost:8080/api/a
-http://localhost:8080/api/b
+http://localhost:8090/actuator/prometheus
+http://localhost:8090/api/a
+http://localhost:8090/api/b
 
 
 minikube.exe start
@@ -28,11 +28,11 @@ docker build -t metrics-demo:v1 .
 
 kubectl apply -f pod.yaml
 
-kubectl port-forward metrics-demo 8080
+kubectl port-forward metrics-demo 8090
 
 неск раз
-http://localhost:8080/api/b
-http://localhost:8080/api/a
+http://localhost:8090/api/b
+http://localhost:8090/api/a
 
 
 ---------- Вариант 2 - устанавливаем весь стек - прометей + оператор + графана
@@ -49,9 +49,9 @@ minikube.exe service metrics-demo
 
 kubectl port-forward service/prometheus-operated  9090
 
-ab -n 500 -c 50 http://localhost:8080/api/a # поменять урл на реальный (выхлоп minikube.exe service metrics-demo)
+ab -n 500 -c 50 http://localhost:8090/api/a # поменять урл на реальный (выхлоп minikube.exe service metrics-demo)
 
-FOR /L %N IN () DO c:\data\otus\msa\Apache24\bin\ab.exe -n 50 -c 10 http://localhost:8080/api/a # аналогично поменять урл
+FOR /L %N IN () DO c:\data\otus\msa\Apache24\bin\ab.exe -n 50 -c 10 http://localhost:8090/api/a # аналогично поменять урл
 
 
 ----

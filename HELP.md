@@ -6,12 +6,12 @@ ENV are specified in secret.yaml
 ### Test requests
 Actuator:
 ```bash
-curl localhost:8080/actuator | json_pp
+curl localhost:8090/actuator | json_pp
 ```
 
 Get metrics:
 ```bash
-curl http://localhost:8080/actuator/prometheus
+curl http://localhost:8090/actuator/prometheus
 
 minikube start
 minikube dashboard # Web UI
@@ -42,6 +42,18 @@ docker push alxinsh/metrics-demo:v2
 ```bash
 kubectl apply -f ./k8s/
 ```
+
+Doesn't work:
+minikube service metrics-demo
+
+minikube tunnel
+
+kubectl get service metrics-demo
+NAME           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+metrics-demo   ClusterIP   10.104.249.93   <none>        8090/TCP   4h51m
+
+Test service endpoint:
+curl 10.104.249.93:8090/actuato
 
 ### Cleanup
 ```bash

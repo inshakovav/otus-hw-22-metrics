@@ -5,17 +5,47 @@ ENV are specified in secret.yaml
 
 ### Test requests
 Actuator:
+```bash
 curl localhost:8080/actuator | json_pp
+```
 
 Get metrics:
+```bash
 curl http://localhost:8080/actuator/prometheus
 
 minikube start
 minikube dashboard # Web UI
-
-# Установка Prometheus, Operator, Grafana,
-# Adn Update Prometheus values
+```
+Установка Prometheus, Operator, Grafana,
+And Update Prometheus values
+```bash
 helm install stack prometheus-community/kube-prometheus-stack -f ./k8s/prometheus.yaml
+```
 
+var 1. Only build to local
+```bash
 docker build -t metrics-demo:v1 .
+```
 
+var 2. Build and push to the Docker hub
+# docker image build -t alxinsh/docker-java-test-app:9.0.14 .
+```bash
+docker image build -t alxinsh/metrics-demo:v1 .
+`docker push alxinsh/metrics-demo:v1`
+```
+
+Deploy to K8s:
+```bash
+kubectl apply -f ./k8s/rs.yaml -f ./k8s/service.yaml -f ./k8s/service-monitor.yaml
+kubectl apply -f ./k8s/
+``` 
+
+### Deploy service into K8s
+```bash
+kubectl apply -f ./k8s/
+```
+
+### Cleanup
+```bash
+kubectl delete -f ./k8s/ 
+```

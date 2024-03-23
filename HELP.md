@@ -22,16 +22,20 @@ And Update Prometheus values
 helm install stack prometheus-community/kube-prometheus-stack -f ./k8s/prometheus.yaml
 ```
 
+### Create docker Image
+```bash
+mvn package
+```
+`
 var 1. Only build to local
 ```bash
-docker build -t metrics-demo:v1 .
+docker build -t alxinsh/metrics-demo:v2 .
 ```
 
 var 2. Build and push to the Docker hub
-# docker image build -t alxinsh/docker-java-test-app:9.0.14 .
 ```bash
-docker image build -t alxinsh/metrics-demo:v1 .
-`docker push alxinsh/metrics-demo:v1`
+docker image build -t alxinsh/metrics-demo:v2 .
+docker push alxinsh/metrics-demo:v2
 ```
 
 Deploy to K8s:

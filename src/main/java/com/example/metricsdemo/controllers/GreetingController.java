@@ -14,6 +14,6 @@ public class GreetingController {
 
     @GetMapping("/test")
     public String test() {
-        return "Test succeeded";
+        return "Test succeeded v4";
     }
 }

@@ -11,13 +11,13 @@ public class MetricController {
 
     @GetMapping("/api/a")
     public String method1() {
-        actionEmulator.doSomething(0, 300);
-        return "";
+        int delay = actionEmulator.doSomething(0, 300);
+        return "Call method1 with delay: " + delay;
     }
 
     @GetMapping("/api/b")
     public String method2() {
-        actionEmulator.doSomething(200, 400);
-        return "";
+        int delay = actionEmulator.doSomething(200, 400);
+        return "Call method2 with delay: " + delay;
     }
 }

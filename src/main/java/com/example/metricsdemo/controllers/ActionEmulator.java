@@ -12,7 +12,7 @@ import static java.lang.Thread.sleep;
 public class ActionEmulator {
     private Random random = new Random();
 
-    public void doSomething(int minMilliseconds, int maxMilliseconds) {
+    public int doSomething(int minMilliseconds, int maxMilliseconds) {
         int interval = random.nextInt(maxMilliseconds - minMilliseconds) + minMilliseconds;
         log.info("Random interval={}", interval);
         try {
@@ -20,5 +20,6 @@ public class ActionEmulator {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        return interval;
     }
 }

@@ -19,7 +19,7 @@ minikube dashboard # Web UI
 Установка Prometheus, Operator, Grafana,
 And Update Prometheus values
 ```bash
-helm install stack prometheus-community/kube-prometheus-stack -f ./k8s/prometheus.yaml
+helm install stack prometheus-community/kube-prometheus-stack -f ./k8s_prometheus/prometheus.yaml
 ```
 
 ### Create docker Image
@@ -37,12 +37,6 @@ var 2. Build and push to the Docker hub
 docker image build -t alxinsh/metrics-demo:v2 .
 docker push alxinsh/metrics-demo:v2
 ```
-
-Deploy to K8s:
-```bash
-kubectl apply -f ./k8s/rs.yaml -f ./k8s/service.yaml -f ./k8s/service-monitor.yaml
-kubectl apply -f ./k8s/
-``` 
 
 ### Deploy service into K8s
 ```bash

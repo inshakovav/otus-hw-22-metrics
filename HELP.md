@@ -27,7 +27,8 @@ helm install stack prometheus-community/kube-prometheus-stack -f ./k8s_prometheu
 mvn package
 ```
 `
-var 1. Only build to local
+var 1. Only build to local.
+! Doesn't work for K8s, only for Docker.
 ```bash
 docker build -t alxinsh/metrics-demo:v2 .
 ```
@@ -53,7 +54,43 @@ NAME           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
 metrics-demo   ClusterIP   10.104.249.93   <none>        8090/TCP   4h51m
 
 Test service endpoint:
-curl 10.104.249.93:8090/actuato
+curl 10.104.249.93:8090/actuator
+
+Forward Prometheus port to host PC:
+kubectl port-forward service/prometheus-operated  9090
+
+Open in Browser Prometheus Web UI:
+127.0.0.1:9090
+
+Hit menu: Status > Targets
+Will be show 2 Pods
+
+For testing install Apache ab software:
+sudo apt-get install apache2-utils
+
+Runs load test for application:
+ab -n 500 -c 50 http://localhost:8090/api/a
+
+ab -n 500 -c 50 http://10.101.217.28:8090/api/a
+ab -n 500 -c 50 http://10.101.217.28:8090/api/b
+
+Hit menu: Graph
+Запрос из БД Prometheus на текущее время. PromQL
+
+Запрос 1 по метрики:
+http_server_requests_seconds_count
+
+Запрос 2 по метрики и тегу uri:
+http_server_requests_seconds_count{uri="/api/a"}
+
+График этой метрике
+
+### Grafana
+Setup port forwarding:
+kubectl port-forward service/stack-grafana  9000:80
+
+Open in Browser: 127.0.0.1:9000
+admin/prom-operator
 
 ### Cleanup
 ```bash

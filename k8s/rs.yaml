@@ -16,7 +16,7 @@ spec:
        spec:
           containers:
           - name: metrics-demo
-            image: alxinsh/metrics-demo:v2
+            image: alxinsh/metrics-demo:v8
             ports:
               - containerPort: 8090
 

@@ -16,13 +16,14 @@ curl http://localhost:8090/actuator/prometheus
 minikube start
 minikube dashboard # Web UI
 ```
-Установка Prometheus, Operator, Grafana,
+### Установка Prometheus, Operator, Grafana,
 And Update Prometheus values
 ```bash
 helm install stack prometheus-community/kube-prometheus-stack -f ./k8s_prometheus/prometheus.yaml
 ```
 
-### Create docker Image
+### Deploy an application to Kubernetes
+Create docker Image
 ```bash
 mvn package
 ```
@@ -39,60 +40,83 @@ docker image build -t alxinsh/metrics-demo:v2 .
 docker push alxinsh/metrics-demo:v2
 ```
 
-### Deploy service into K8s
+Deploy service into K8s
 ```bash
 kubectl apply -f ./k8s/
 ```
 
-Doesn't work:
-minikube service metrics-demo
+### Cleanup K8s
+```bash
+kubectl delete -f ./k8s/ 
+```
 
+### Application load test
+Doesn't work:
+```bash
+minikube service metrics-demo
+```
+
+Enable tunnel
+```bash
 minikube tunnel
+```
+
+Get external application IP:
+```bash
 
 kubectl get service metrics-demo
 NAME           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
 metrics-demo   ClusterIP   10.104.249.93   <none>        8090/TCP   4h51m
+```
 
 Test service endpoint:
+```bash
 curl 10.104.249.93:8090/actuator
+```
 
 Forward Prometheus port to host PC:
+```bash
 kubectl port-forward service/prometheus-operated  9090
+```
 
-Open in Browser Prometheus Web UI:
+Open in Browser Prometheus Web UI:  
 127.0.0.1:9090
 
-Hit menu: Status > Targets
+Hit menu: Status > Targets  
 Will be show 2 Pods
 
 For testing install Apache ab software:
+```bash
 sudo apt-get install apache2-utils
+```
 
 Runs load test for application:
+```bash
 ab -n 500 -c 50 http://localhost:8090/api/a
+```
 
+```bash
 ab -n 500 -c 50 http://10.101.217.28:8090/api/a
 ab -n 500 -c 50 http://10.101.217.28:8090/api/b
+```
 
-Hit menu: Graph
+Hit menu: Graph  
 Запрос из БД Prometheus на текущее время. PromQL
 
-Запрос 1 по метрики:
+Запрос 1 по метрики:  
 http_server_requests_seconds_count
 
-Запрос 2 по метрики и тегу uri:
+Запрос 2 по метрики и тегу uri:  
 http_server_requests_seconds_count{uri="/api/a"}
 
 График этой метрике
 
 ### Grafana
 Setup port forwarding:
+```bash
 kubectl port-forward service/stack-grafana  9000:80
+```
 
-Open in Browser: 127.0.0.1:9000
+Open in Browser: 127.0.0.1:9000  
 admin/prom-operator
 
-### Cleanup
-```bash
-kubectl delete -f ./k8s/ 
-```

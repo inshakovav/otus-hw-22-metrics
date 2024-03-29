@@ -1,7 +1,13 @@
 # Spring Boot REST-service
-The Spring Boot service expose CRUD to the user.  
-The database credentials are specified in ENV.  
-ENV are specified in secret.yaml
+Spring Boot application provides endpoints:
+api/a - with random delay from 0 ms to 300 ms
+api/b - with random delay from 200 ms to 400 ms
+
+The Metrics library provides endpoint metrics:
+actuator/prometheus
+
+Prometheus collect these metrics and stores them in a time serial database.
+Grafana calculates metrics using PomeQL-queries and provides dashboards.
 
 ### Test requests
 Actuator:

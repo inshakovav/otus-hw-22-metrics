@@ -12,11 +12,11 @@ management:
       prometheus:
         enabled: true
     distribution:
-#      percentiles-histogram:
-#        "[http.server.requests]": true # Для REST-запросов возвращает гистограмму списком Автогенерированным: ... le="0.001048576",} 12.0 ...
+      percentiles-histogram:
+        "[http.server.requests]": true # Для REST-запросов возвращает гистограмму списком Автогенерированным: ... le="0.001048576",} 12.0 ...
       slo:
         http.server.requests: 50ms, 60ms, 100ms, 200ms, 300ms, 400ms # Будут добавлены только эти шаги в гистограмму
-      percentiles:
-        "[http.server.requests]": 0.5, 0.95, 0.99, 1
+#      percentiles:
+#        "[http.server.requests]": 0.5, 0.95, 0.99, 1
     tags:
       application: my_tag

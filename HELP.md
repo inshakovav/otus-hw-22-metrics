@@ -1,12 +1,12 @@
 # Spring Boot REST-service
-Spring Boot application provides endpoints:
-api/a - with random delay from 0 ms to 300 ms
-api/b - with random delay from 200 ms to 400 ms
+Spring Boot application provides endpoints:  
+api/a - with random delay from 0 ms to 300 ms  
+api/b - with random delay from 200 ms to 400 ms  
 
-The Metrics library provides endpoint metrics:
+The Metrics library provides endpoint metrics:  
 actuator/prometheus
 
-Prometheus collect these metrics and stores them in a time serial database.
+Prometheus collect these metrics and stores them in a time serial database.  
 Grafana calculates metrics using PomeQL-queries and provides dashboards.
 
 ### Test requests
@@ -62,7 +62,7 @@ Doesn't work:
 minikube service metrics-demo
 ```
 
-Enable tunnel
+Variant 1: Enable tunnel
 ```bash
 minikube tunnel
 ```
@@ -75,9 +75,14 @@ NAME           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
 metrics-demo   ClusterIP   10.104.249.93   <none>        8090/TCP   4h51m
 ```
 
+Variant 2: Forward Application port to host PC:
+```bash
+kubectl port-forward service/metrics-demo  8090
+```
+
 Test service endpoint:
 ```bash
-curl 10.104.249.93:8090/actuator
+curl localhost:8090/actuator
 ```
 
 Forward Prometheus port to host PC:
@@ -99,11 +104,7 @@ sudo apt-get install apache2-utils
 Runs load test for application:
 ```bash
 ab -n 500 -c 50 http://localhost:8090/api/a
-```
-
-```bash
-ab -n 500 -c 50 http://10.101.217.28:8090/api/a
-ab -n 500 -c 50 http://10.101.217.28:8090/api/b
+ab -n 500 -c 50 http://localhost:8090/api/b
 ```
 
 Hit menu: Graph  

@@ -20,4 +20,10 @@ public class MetricController {
         int delay = actionEmulator.doSomething(200, 400);
         return "Call method2 with delay: " + delay;
     }
+
+    @GetMapping("/api/error-code")
+    public String getWithError() {
+        actionEmulator.randomThrowException(15);
+        return "Call method getWithError";
+    }
 }

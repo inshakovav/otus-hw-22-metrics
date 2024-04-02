@@ -22,4 +22,11 @@ public class ActionEmulator {
         }
         return interval;
     }
+
+    public void randomThrowException(int exceptionPercent) {
+        int random100 = random.nextInt(100);
+        if(exceptionPercent > random100) {
+            throw new NullPointerException();
+        }
+    }
 }

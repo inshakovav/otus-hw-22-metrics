@@ -105,6 +105,8 @@ Runs load test for application:
 ```bash
 ab -n 500 -c 50 http://localhost:8090/api/a
 ab -n 500 -c 50 http://localhost:8090/api/b
+
+ab -n 500 -c 50 http://localhost:8090/api/error-code
 ```
 
 Hit menu: Graph  

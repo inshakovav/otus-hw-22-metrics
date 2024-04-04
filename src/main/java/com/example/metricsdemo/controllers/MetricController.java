@@ -23,7 +23,7 @@ public class MetricController {
 
     @GetMapping("/api/error-code")
     public String getWithError() {
-        actionEmulator.randomThrowException(15);
+        actionEmulator.randomThrowException(50);
         return "Call method getWithError";
     }
 }

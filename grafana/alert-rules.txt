@@ -1,0 +1,13 @@
+1. Алерт на привышение ответов с 500 HTTP code:
+
+Расчет RPS по 500-code:
+sum (rate(http_server_requests_seconds_count{status="500"}[1m]))
+
+Пороговое значение: 0.2
+
+2. Алерт на увеличение времени ответа Latency по всем Endpoints:
+Общее время/число всех запросов
+sum (rate(http_server_requests_seconds_sum[1m]))/sum (rate(http_server_requests_seconds_count[1m]))
+
+Порог: 270 мс.
+При вызове /api/b задержка 200...400 мс.
